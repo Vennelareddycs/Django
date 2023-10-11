@@ -1,0 +1,23 @@
+ {% extends "base.html" %} 
+{% comment %}django identifies global html when u give path of global templates in dirs in settings {% endcomment %}
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static "challenges/challenges.css" %}">
+<link rel="stylesheet" href="{% static "challenges/includes/header.css" %}">
+{% endblock %}
+
+<link rel="stylesheet"
+    {% block page_title %}
+        All Challenges
+    {% endblock %}
+
+    {% block content %}
+    {% include "challenges/includes/header.html" with active_page="index" %}
+    <ul>
+        {% for day in days %}
+        {% comment %} <li><a href="/challenges/{{ day }}">{{day|title }}</a></li> {% endcomment %}
+        <li><a href="{% url "week" day %}">{{day|title }}</a></li> 
+        {% endfor %}
+    </ul>
+    {% endblock %}
